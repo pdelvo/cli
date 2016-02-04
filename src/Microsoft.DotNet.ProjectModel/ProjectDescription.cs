@@ -46,7 +46,7 @@ namespace Microsoft.DotNet.ProjectModel
         
         public OutputPathCalculator GetOutputPathCalculator()
         {
-            return new OutputPathCalculator(Project, Framework, runtimeIdentifier: null, baseBuildPath: null, outputPath: null);
+            return new OutputPathCalculator(Project, Framework, runtimeIdentifier: null, buildBasePath: null, outputPath: null);
         }
     }
 }

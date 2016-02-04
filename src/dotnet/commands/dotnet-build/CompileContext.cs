@@ -281,7 +281,7 @@ namespace Microsoft.DotNet.Tools.Build
 
             if (!string.IsNullOrWhiteSpace(_args.BuildBasePathValue))
             {
-                args.Add("--temp-output");
+                args.Add("--build-base-path");
                 args.Add(_args.BuildBasePathValue);
             }
 
@@ -310,7 +310,7 @@ namespace Microsoft.DotNet.Tools.Build
 
             if (!string.IsNullOrEmpty(_args.BuildBasePathValue))
             {
-                args.Add("--temp-output");
+                args.Add("--build-base-path");
                 args.Add(_args.BuildBasePathValue);
             }
 

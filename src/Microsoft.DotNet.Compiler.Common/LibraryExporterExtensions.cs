@@ -49,6 +49,10 @@ namespace Microsoft.DotNet.Cli.Compiler.Common
 
         public static void CopyTo(this IEnumerable<string> assets, string destinationPath)
         {
+            if (!Directory.Exists(destinationPath))
+            {
+                Directory.CreateDirectory(destinationPath);
+            }
             foreach (var asset in assets)
             {
                 File.Copy(asset, Path.Combine(destinationPath, Path.GetFileName(asset)),

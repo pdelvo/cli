@@ -21,6 +21,8 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             _dirInfo = dir;                        
         }
 
+        public DirectoryInfo DirectoryInfo => _dirInfo;
+
         public AndConstraint<DirectoryInfoAssertions> Exist()
         {
             _dirInfo.Exists.Should().BeTrue();

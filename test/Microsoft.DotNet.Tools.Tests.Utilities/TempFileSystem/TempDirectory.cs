@@ -48,6 +48,8 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             get { return _path; }
         }
  
+        public DirectoryInfo DirectoryInfo => new DirectoryInfo(Path);
+
         /// <summary>
         /// Creates a file in this directory.
         /// </summary>

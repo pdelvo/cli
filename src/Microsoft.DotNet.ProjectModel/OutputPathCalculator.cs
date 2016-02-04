@@ -26,16 +26,16 @@ namespace Microsoft.DotNet.ProjectModel
             Project project,
             NuGetFramework framework,
             string runtimeIdentifier,
-            string baseBuildPath,
+            string buildBasePath,
             string outputPath)
         {
             _project = project;
             _framework = framework;
             _runtimeIdentifier = runtimeIdentifier;
 
-            BaseBuildPath = string.IsNullOrEmpty(baseBuildPath)
+            BaseBuildPath = string.IsNullOrEmpty(buildBasePath)
                 ? _project.ProjectDirectory
-                : Path.Combine(baseBuildPath, _project.Name);
+                : Path.Combine(buildBasePath, _project.Name);
 
             OutputPath = outputPath;
         }
@@ -50,7 +50,7 @@ namespace Microsoft.DotNet.ProjectModel
             return outDir;
         }
 
-        public string GetFinalOutputPath(string buildConfiguration)
+        public string GetRuntimeOutputPath(string buildConfiguration)
         {
             if (string.IsNullOrEmpty(OutputPath))
             {
@@ -79,7 +79,7 @@ namespace Microsoft.DotNet.ProjectModel
             }
 
             return Path.Combine(
-                runtime ? GetFinalOutputPath(buildConfiguration) : GetCompilationOutputPath(buildConfiguration),
+                runtime ? GetRuntimeOutputPath(buildConfiguration) : GetCompilationOutputPath(buildConfiguration),
                 _project.Name + outputExtension);
         }
 
@@ -120,7 +120,7 @@ namespace Microsoft.DotNet.ProjectModel
         public string GetDepsPath(string buildConfiguration)
         {
             return Path.Combine(
-                GetFinalOutputPath(buildConfiguration),
+                GetRuntimeOutputPath(buildConfiguration),
                 _project.Name + FileNameSuffixes.Deps);
         }
 
@@ -136,7 +136,7 @@ namespace Microsoft.DotNet.ProjectModel
             }
 
             return Path.Combine(
-                GetFinalOutputPath(buildConfiguration),
+                GetRuntimeOutputPath(buildConfiguration),
                 _project.Name + extension);
         }
 

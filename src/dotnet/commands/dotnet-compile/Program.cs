@@ -64,9 +64,9 @@ namespace Microsoft.DotNet.Tools.Compiler
             var nativeOutputPath = Path.Combine(outputPath, "native");
             var intermediateOutputPath =
                 outputPathCalculator.GetIntermediateOutputDirectoryPath(args.ConfigValue);
-            var nativeIntermediateOutputPath = Path.Combine(intermediateOutputPath, "native");
+            var nativeTempOutput = Path.Combine(intermediateOutputPath, "native");
             Directory.CreateDirectory(nativeOutputPath);
-            Directory.CreateDirectory(nativeIntermediateOutputPath);
+            Directory.CreateDirectory(nativeTempOutput);
 
             var managedOutput = outputPathCalculator.GetAssemblyPath(args.ConfigValue);
 
@@ -132,14 +132,14 @@ namespace Microsoft.DotNet.Tools.Compiler
 
             // Intermediate Path
             nativeArgs.Add("--temp-output");
-            nativeArgs.Add($"{nativeIntermediateOutputPath}");
+            nativeArgs.Add($"{nativeTempOutput}");
 
             // Output Path
             nativeArgs.Add("--output");
             nativeArgs.Add($"{nativeOutputPath}");
 
             // Write Response File
-            var rsp = Path.Combine(nativeIntermediateOutputPath, $"dotnet-compile-native.{context.ProjectFile.Name}.rsp");
+            var rsp = Path.Combine(nativeTempOutput, $"dotnet-compile-native.{context.ProjectFile.Name}.rsp");
             File.WriteAllLines(rsp, nativeArgs);
 
             // TODO Add -r assembly.dll for all Nuget References

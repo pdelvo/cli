@@ -13,7 +13,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         private Project _project;
         private string _projectPath;
         private string _outputDirectory;
-        private string _tempOutputDirectory;
+        private string _buidBasePathDirectory;
         private string _configuration;
         private bool _noHost;
         private bool _native;
@@ -36,13 +36,13 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             }
         }
 
-        private string TempOutputOption
+        private string BuildBasePathOption
         {
             get
             {
-                return _tempOutputDirectory == string.Empty ?
+                return _buidBasePathDirectory == string.Empty ?
                                            "" :
-                                           $"-t {_tempOutputDirectory}";
+                                           $"-b {_buidBasePathDirectory}";
             }
         }
 
@@ -159,7 +159,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         public BuildCommand(
             string projectPath,
             string output="",
-            string tempOutput="",
+            string buidBasePath="",
             string configuration="",
             bool noHost=false,
             bool native=false,
@@ -179,7 +179,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             _project = ProjectReader.GetProject(projectPath);
 
             _outputDirectory = output;
-            _tempOutputDirectory = tempOutput;
+            _buidBasePathDirectory = buidBasePath;
             _configuration = configuration;
             _noHost = noHost;
             _native = native;
@@ -214,7 +214,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 
         private string BuildArgs()
         {
-            return $"{BuildProfile} {ForceIncrementalUnsafe} \"{_projectPath}\" {OutputOption} {TempOutputOption} {ConfigurationOption} {NoHostOption} {NativeOption} {ArchitectureOption} {IlcArgsOption} {IlcPathOption} {AppDepSDKPathOption} {NativeCppModeOption} {CppCompilerFlagsOption}";
+            return $"{BuildProfile} {ForceIncrementalUnsafe} \"{_projectPath}\" {OutputOption} {BuildBasePathOption} {ConfigurationOption} {NoHostOption} {NativeOption} {ArchitectureOption} {IlcArgsOption} {IlcPathOption} {AppDepSDKPathOption} {NativeCppModeOption} {CppCompilerFlagsOption}";
         }
     }
 }

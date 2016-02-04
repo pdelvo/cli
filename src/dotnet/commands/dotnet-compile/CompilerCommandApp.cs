@@ -22,7 +22,7 @@ namespace Microsoft.DotNet.Tools.Compiler
 
         // options and arguments for compilation
         private CommandOption _outputOption;
-        private CommandOption _baseBuildPath;
+        private CommandOption _buildBasePath;
         private CommandOption _frameworkOption;
         private CommandOption _runtimeOption;
         private CommandOption _configurationOption;
@@ -73,7 +73,7 @@ namespace Microsoft.DotNet.Tools.Compiler
             _app.HelpOption("-h|--help");
 
             _outputOption = _app.Option("-o|--output <OUTPUT_DIR>", "Directory in which to place outputs", CommandOptionType.SingleValue);
-            _baseBuildPath = _app.Option("-t|--temp-output <OUTPUT_DIR>", "Directory in which to place temporary outputs", CommandOptionType.SingleValue);
+            _buildBasePath = _app.Option("-b|--build-base-path <OUTPUT_DIR>", "Directory in which to place temporary outputs", CommandOptionType.SingleValue);
             _frameworkOption = _app.Option("-f|--framework <FRAMEWORK>", "Compile a specific framework", CommandOptionType.MultipleValue);
             _configurationOption = _app.Option("-c|--configuration <CONFIGURATION>", "Configuration under which to build", CommandOptionType.SingleValue);
             _runtimeOption = _app.Option("-r|--runtime <RUNTIME_IDENTIFIER>", "Target runtime to publish for", CommandOptionType.SingleValue);
@@ -102,7 +102,7 @@ namespace Microsoft.DotNet.Tools.Compiler
                 }
 
                 OutputValue = _outputOption.Value();
-                BuildBasePathValue = _baseBuildPath.Value();
+                BuildBasePathValue = _buildBasePath.Value();
                 ConfigValue = _configurationOption.Value() ?? Constants.DefaultConfiguration;
                 RuntimeValue = _runtimeOption.Value();
 

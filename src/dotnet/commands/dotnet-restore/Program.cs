@@ -173,7 +173,7 @@ namespace Microsoft.DotNet.Tools.Restore
                 Path.GetDirectoryName(toolDescription.Target.RuntimeAssemblies.First().Path),
                 toolDescription.Identity.Name + FileNameSuffixes.Deps);
 
-            var calculator = context.GetOutputPathCalculator(baseBuildPath: null, outputPath: context.ProjectDirectory);
+            var calculator = context.GetOutputPathCalculator(buidBasePath: null, outputPath: context.ProjectDirectory);
             var executable = new Executable(context, calculator);
 
             executable.MakeCompilationOutputRunnable(Constants.DefaultConfiguration);

@@ -155,9 +155,9 @@ namespace Microsoft.DotNet.ProjectModel
                         .BuildAllTargets();
         }
 
-        public OutputPathCalculator GetOutputPathCalculator(string baseBuildPath = null, string outputPath = null)
+        public OutputPathCalculator GetOutputPathCalculator(string buidBasePath = null, string outputPath = null)
         {
-            return new OutputPathCalculator(ProjectFile, TargetFramework, RuntimeIdentifier, baseBuildPath, outputPath);
+            return new OutputPathCalculator(ProjectFile, TargetFramework, RuntimeIdentifier, buidBasePath, outputPath);
         }
     }
 }

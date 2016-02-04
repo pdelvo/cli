@@ -20,7 +20,7 @@ namespace Microsoft.DotNet.Tools.Publish
     {
         public string ProjectPath { get; set; }
         public string Configuration { get; set; }
-        public string BaseBuildPath { get; set; }
+        public string BuildBasePath { get; set; }
         public string OutputPath { get; set; }
         public string Framework { get; set; }
         public string Runtime { get; set; }
@@ -62,7 +62,7 @@ namespace Microsoft.DotNet.Tools.Publish
 
             foreach (var project in ProjectContexts)
             {
-                if (PublishProjectContext(project, BaseBuildPath, OutputPath, Configuration, NativeSubdirectories))
+                if (PublishProjectContext(project, BuildBasePath, OutputPath, Configuration, NativeSubdirectories))
                 {
                     NumberOfPublishedProjects++;
                 }
@@ -79,7 +79,7 @@ namespace Microsoft.DotNet.Tools.Publish
         /// <param name="configuration">Debug or Release</param>
         /// <param name="nativeSubdirectories"></param>
         /// <returns>Return 0 if successful else return non-zero</returns>
-        private static bool PublishProjectContext(ProjectContext context, string baseBuildPath, string outputPath, string configuration, bool nativeSubdirectories)
+        private static bool PublishProjectContext(ProjectContext context, string buildBasePath, string outputPath, string configuration, bool nativeSubdirectories)
         {
             Reporter.Output.WriteLine($"Publishing {context.RootProject.Identity.Name.Yellow()} for {context.TargetFramework.DotNetFrameworkName.Yellow()}/{context.RuntimeIdentifier.Yellow()}");
 
@@ -87,7 +87,7 @@ namespace Microsoft.DotNet.Tools.Publish
             
             if (string.IsNullOrEmpty(outputPath))
             {
-                outputPath = context.GetOutputPathCalculator(baseBuildPath, outputPath).GetFinalOutputPath(configuration);
+                outputPath = context.GetOutputPathCalculator(buildBasePath, outputPath).GetFinalOutputPath(configuration);
             }
 
             var contextVariables = new Dictionary<string, string>
@@ -116,10 +116,10 @@ namespace Microsoft.DotNet.Tools.Publish
                 configuration,
                 context.ProjectFile.ProjectDirectory
             };
-            if (!string.IsNullOrEmpty(baseBuildPath))
+            if (!string.IsNullOrEmpty(buildBasePath))
             {
-                args.Add("--temp-output");
-                args.Add(baseBuildPath);
+                args.Add("--build-base-path");
+                args.Add(buildBasePath);
             }
             var result = Command.CreateDotNet("build",
                 args.ToArray())
